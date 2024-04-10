@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Flight_Booking_System.Models.Flight>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@{
+    String role = String.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (String)Session["Role"];
+    }
+    Flight_Booking_System.Models.ARSContext db = new Flight_Booking_System.Models.ARSContext();
+}
+
+<h2 class="h4 mb-3">Flights</h2>
+@if (role == "Admin")
+{
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Add New Flight</a>
+    </p>
+}
+
+<table class="table table-bordered">
+    <tr class="table-light">
+        <th>Source</th>
+        <th>Source Airport</th>
+        <th>Destination</th>
+        <th>Destination Airport</th>
+        <th>Flight Id </th>
+        @*<th>Total Seats Capacity</th>*@
+        <th>Airline</th>
+        @if (role == "Admin")
+        {
+       <th>Actions</th>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Source</td>
+            <td>
+                @item.SourceCode
+                @*@{
+                        Flight_Booking_System.Models.Airport ar = db.Airports.Find(item.AirportId);
+                    }
+                    @ar.AirportName*@
+            </td>
+            <td>@item.Destination</td>
+            <td>
+                @item.DestinationCode
+                @*@{
+                        Flight_Booking_System.Models.Airport ar1 = db.Airports.Find(item.AirportId);
+                    }
+                    @ar1.AirportName*@
+            </td>
+            @*<td>@item.ArrivalTime</td>
+            <td>@item.DepartureTime</td>*@
+            <td>@item.FlightId</td>
+            @*<td>@item.TotalSeatsCapacity</td>*@
+            @*<td>@item.FlightDate.ToShortDateString()</td>*@
+            <td>
+                @{
+                    Flight_Booking_System.Models.Airline al = db.Airlines.Find(item.AirlineId);
+                }
+                @al.AirlineName
+            </td>
+            <td>
+                @if (role == "Admin")
+                {
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Flight", new { id = item.FlightId })">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Flight", new { id = item.FlightId })">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>

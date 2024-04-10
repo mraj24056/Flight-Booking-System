@@ -1,0 +1,154 @@
+﻿@model Flight_Booking_System.Models.Booking
+
+@{ 
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@{
+    Flight_Booking_System.Models.ARSContext db = new Flight_Booking_System.Models.ARSContext();
+
+    int userId = (int)Session["userid"];
+    Flight_Booking_System.Models.UserLogin user = db.UserLogins.Find(userId);
+    string firstName = user.FirstName;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-family: Mistral, cursive;
+        }
+
+        .booking-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+            padding: 0.7em 2em;
+            border: 3px solid #FF0072;
+            border-radius: 2px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+            color: #FF0072;
+            text-decoration: none;
+            transition: 0.3s ease all;
+            z-index: 1;
+        }
+
+            button:before {
+                transition: 0.5s all ease;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                right: 50%;
+                bottom: 0;
+                opacity: 0;
+                content: '';
+                background-color: #FF0072;
+                z-index: -1;
+            }
+
+            button:hover, button:focus {
+                color: white;
+            }
+
+                button:hover:before, button:focus:before {
+                    transition: 0.5s all ease;
+                    left: 0;
+                    right: 0;
+                    opacity: 1;
+                }
+
+            button:active {
+                transform: scale(0.9);
+            }
+
+        .text-center {
+            text-align: center;
+        }
+
+  
+
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Search Flights</h1>
+    <br/>
+    <br/>
+    <div class="booking-form">
+        <h2 class="text-center">Welcome, @firstName!</h2>
+        <form action="@Url.Action("SearchSchedule", "Schedule")" method="post">
+            <div class="form-group">
+                <label for="source">Source:</label>
+                @Html.DropDownList("source", (IEnumerable<SelectListItem>)ViewBag.Source, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination:</label>
+                @Html.DropDownList("destination", (IEnumerable<SelectListItem>)ViewBag.Destination, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <br />
+            <button class="text-center">
+                Search Flights
+            </button>
+        </form>
+    </div>
+
+    @*<div>
+        <h3><a href="@Url.Action("Index", "Booking")">My Bookings</a></h3>
+    </div>*@
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@*@section Styles {
+        <style>
+            /* Add your custom CSS styles here */
+        </style>
+    }*@
+
+<h2>Booking Confirmation</h2>
+
+<p>Dear <strong>@ViewBag.FirstName</strong>,</p>
+
+<p>Your booking has been confirmed with the following details:</p>
+
+<p>
+    <strong>Source:</strong> @ViewBag.Source<br />
+    <strong>Destination:</strong> @ViewBag.Destination<br />
+    <strong>Airline:</strong> @ViewBag.Airline<br/>
+    <strong>Departure Time:</strong> @ViewBag.DepartureTime<br />
+    <strong>Arrival Time:</strong> @ViewBag.ArrivalTime<br />
+    <strong>Booking Date:</strong> @ViewBag.FlightDate.ToShortDateString()<br />
+    <strong>Total Price:</strong> @ViewBag.TotalPrice<br />
+</p>
+
+<p>Thank you for choosing our flight booking system!</p>
+
+<button type="button" onclick="window.print()" class="btn btn-primary">
+    PRINT
+</button>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>

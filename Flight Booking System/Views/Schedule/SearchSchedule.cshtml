@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@model IEnumerable<Flight_Booking_System.Models.Schedule>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Flight Schedule</h2>
+
+
+    @if (Model.Count() > 0)
+    {
+        Flight_Booking_System.Models.ARSContext db = new Flight_Booking_System.Models.ARSContext();
+
+        <table>
+            <tr>
+                @*<th>Schedule ID</th>*@
+                <th>Flight ID</th>
+                <th>Airline Name</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Flight Date</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var schedule in Model)
+            {
+                <tr>
+                    @*<td>@schedule.ScheduleId</td>*@
+                    <td>@schedule.FlightId</td>
+                    <td>
+                        @{
+                            Flight_Booking_System.Models.Airline al = db.Airlines.Find(schedule.AirlineId);
+                        }
+                        @al.AirlineName
+                    </td>
+                    <td>@schedule.Source</td>
+                    <td>@schedule.Destination</td>
+                    <td>@schedule.FlightDate.ToString("yyyy-MM-dd")</td>
+                    <td>@schedule.DepartureTime</td>
+                    <td>@schedule.ArrivalTime</td>
+                    <td>@schedule.Price</td>
+                    <td>
+                        @if (schedule.FlightDate > DateTime.Now)
+                        {
+                            @Html.ActionLink("Book Now!", "Create", "Booking", new { id = schedule.ScheduleId }, new { @class = "nav-link" })
+
+                        }
+
+                        else
+                        {
+                            <p>
+                                <br />
+                                Please choose a valid Date.
+                            </p>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No schedules found.</p>
+    }
+</body>
+</html>

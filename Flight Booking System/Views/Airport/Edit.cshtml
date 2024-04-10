@@ -1,0 +1,62 @@
+﻿@model Flight_Booking_System.Models.Airport
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Airport</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        
+        <div class="form-group row">
+            
+            <div class="col-md-2">
+                @Html.HiddenFor(model => model.AirportId, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.AirportName, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AirportName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AirportName, "", new { @class = "text-danger" })
+                <br/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                <br/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                <br/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="offset-md-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" /> 
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" }) 
+</div>

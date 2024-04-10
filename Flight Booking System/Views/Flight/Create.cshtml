@@ -1,0 +1,83 @@
+﻿<style>
+    /* Example high-level CSS styles */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    /* Table styles */
+    .table-light th,
+    .table-light td {
+        background-color: #f8f9fa;
+    }
+
+    /* Button styles */
+    .btn-primary.btn-sm {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .btn-danger.btn-sm {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+</style>
+
+<h2 class="h4 mb-3">Create Flight</h2>
+<form method="post" action="https://localhost:44359/Flight/Create">
+    <div class="form-group">
+        <label for="AirlineId">Airline Name:</label><br />
+        @Html.DropDownList("AirlineId", (IEnumerable<SelectListItem>)ViewBag.Airlines, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="source">Source:</label>
+        @Html.DropDownList("AirportId", (IEnumerable<SelectListItem>)ViewBag.Source, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="destination">Destination:</label>
+        @Html.DropDownList("AirportId1", (IEnumerable<SelectListItem>)ViewBag.Destination, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group" hidden>
+        <label for="ArrivalTime">Arrival Time:</label>
+        @Html.TextBox("ArrivalTime", null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group" hidden>
+        <label for="DepartureTime">Departure Time:</label>
+        @Html.TextBox("DepartureTime", null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group" hidden>
+        <label for="TotalSeatsCapacity">Total Seats Capacity:</label>
+        @Html.TextBox("TotalSeatsCapacity", null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

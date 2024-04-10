@@ -1,0 +1,65 @@
+﻿@model Flight_Booking_System.Models.Flight
+
+
+
+<style>
+    /* Example high-level CSS styles */
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    h4 {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .btn-danger {
+        background-color: #d9534f;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+</style>
+
+<h2 class="h4 mb-3">Delete Flight</h2>
+
+<h3>Are you sure you want to delete this flight?</h3>
+<div>
+    @*<h4>Flight ID: @Model.FlightId</h4>
+    <h4>Airline ID: @Model.AirlineId</h4>
+    <h4>Airport ID: @Model.AirportId</h4>*@
+    <h4>Source: @Model.Source</h4>
+    <h4>Destination: @Model.Destination</h4>
+    <h4>Arrival Time: @Model.ArrivalTime</h4>
+    <h4>Departure Time: @Model.DepartureTime</h4>
+    <h4>Total Seats Capacity: @Model.TotalSeatsCapacity</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-group">
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    @Html.ActionLink("Back to List", "Index")
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

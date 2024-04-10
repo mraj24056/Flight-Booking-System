@@ -1,0 +1,448 @@
+﻿@model Flight_Booking_System.Models.Booking
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+    Flight_Booking_System.Models.ARSContext db = new Flight_Booking_System.Models.ARSContext();
+}
+
+<style>
+
+    .pulsa {
+        animation: pulsa 1.4s infinite;
+        min-width: 200px;
+        width: fit-content;
+        border-radius: 9999px;
+    }
+
+    .cta {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: none;
+        border-radius: 9999px;
+        padding: 8px 16px;
+        color: white;
+        font-size: 15px;
+        background: rgb(118, 36, 194);
+        letter-spacing: 0.08em;
+        font-weight: 800;
+        position: relative;
+        margin-top: 70px;
+    }
+
+        .cta:active {
+            animation: pulsa-active .4s infinite;
+        }
+
+    .star {
+        width: 2px;
+        height: 2px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        animation: pulsa-stella 1.8s infinite;
+        transition: all .8s ease-in-out;
+    }
+
+        .star.a {
+            top: 8px;
+            left: 6px;
+        }
+
+        .star.b {
+            top: 2px;
+            left: 16px;
+        }
+
+        .star.c {
+            top: 18px;
+            left: 8px;
+        }
+
+        .star.d {
+            top: 14px;
+            left: 20px;
+        }
+
+        .star.e {
+            top: 30px;
+            left: 8px;
+        }
+
+        .star.f {
+            top: 24px;
+            left: 24px;
+        }
+
+        .star.g {
+            top: 10px;
+            left: 32px;
+        }
+
+    .pulsa:hover .star.a {
+        transform: translate3d(0px, 8px, 0);
+    }
+
+    .pulsa:hover .star.b {
+        transform: translate3d(-4px, 6px, 0);
+    }
+
+    .pulsa:hover .star.c {
+        transform: translate3d(14px, -8px, 0);
+    }
+
+    .pulsa:hover .star.d {
+        transform: translate3d(16px, -2px, 0);
+    }
+
+    .pulsa:hover .star.e {
+        transform: translate3d(58px, -20px, 0);
+    }
+
+    .pulsa:hover .star.f {
+        transform: translate3d(34px, 2px, 0);
+    }
+
+    .pulsa:hover .star.g {
+        transform: translate3d(10px, 16px, 0);
+    }
+
+    .rocket {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        z-index: -1;
+        transform: rotate(180deg);
+        transition: all .3s ease-in-out;
+    }
+
+    .pulsa:hover .rocket {
+        z-index: auto;
+        animation: muovi-razzo 1.8s linear;
+        transform: rotate(0deg);
+    }
+
+
+
+
+
+    .card {
+        max-width: 469px;
+        margin-left: 295px;
+        border-radius: 1rem;
+        background-color: rgba(31, 41, 55, 1);
+        padding: 1rem;
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        grid-gap: 1rem;
+        gap: 1rem;
+    }
+
+    .image {
+        height: 5rem;
+        width: 9rem;
+        border-radius: 0.5rem;
+        color:white;
+        font-size:small;
+        padding:10px;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .info {
+        height: 7rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .name {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        display:flex;
+        justify-content:center;
+    }
+
+    .function {
+        font-size: 0.75rem;
+        margin-top: 20px;
+        padding-bottom: 0px;
+        color: rgba(156, 163, 175, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .stats {
+        width: 100%;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: rgba(0, 0, 0, 1);
+    }
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 4px;
+    }
+
+    .state-value {
+        font-weight: 700;
+        color: rgb(118, 36, 194);
+        width: 90%;
+        margin-left: 24px;
+    }
+
+    .request {
+        margin-top: 1.5rem;
+        width: 100%;
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        transition: all .3s ease;
+        margin-top: 100px;
+    }
+
+        .request input {
+            display: flex;
+            color: white;
+            background-color: rgb(118, 36, 194);
+            margin-left: 60px;
+        }
+
+        .request:hover, .request:focus {
+            background-color: rgb(118, 36, 194);
+            color: #fff;
+        }
+
+        .navbar{
+            height:40px
+        }
+
+
+        .request input:hover {
+            display: flex;
+            color: rgb(118, 36, 194);
+            background-color: white;
+            margin-left: 20px;
+        }
+
+       
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        border-radius: 4px;
+        padding: 6px 12px;
+    }
+
+    .validation-summary-errors {
+        color: red;
+        margin-bottom: 20px;
+    }
+
+ 
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .timed {
+        margin-top: -20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .arrow {
+        font-size: 15px;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 10px;
+        margin-top: -30px;
+    }
+
+        .cards .red {
+            background-color: #f43f5e;
+        }
+
+        .cards .blue {
+            background-color: #3b82f6;
+        }
+
+        .cards .green {
+            background-color: #22c55e;
+        }
+
+        .cards .card2 {
+            display: flex;
+            align-items: unset;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 53px;
+            width: 130px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: 400ms;
+        }
+
+            .cards .card2 p.tip {
+                font-size: 1em;
+                font-weight: 700;
+            }
+
+            .cards .card2 p.second-text {
+                font-size: .7em;
+            }
+
+            .cards .card2:hover {
+                transform: scale(1.1, 1.1);
+            }
+
+        .cards:hover > .card2:not(:hover) {
+            filter: blur(10px);
+            transform: scale(0.9, 0.9);
+        }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+<div class="card">
+    <h4 style="padding-top: 12px; padding-bottom: 28px; color: white ">Booking Details</h4>
+    <div class="infos">
+        <div class="image">
+            <div class="cards">
+                <div class="card2 red">
+                    <p class="second-text">
+                        @Html.LabelFor(model => model.FlightId, "Flight ID: ", htmlAttributes: new { @class = "control-label" })
+                        @Model.FlightId
+                        @Html.HiddenFor(model => model.FlightId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FlightId, "", new { @class = "text-danger" })
+                    </p>
+                </div>
+                <div class="card2 blue">
+                    <p class="second-text">
+                        @Html.LabelFor(model => model.UserID, "User ID: ", htmlAttributes: new { @class = "control-label" })
+                        @Model.UserID
+                        @Html.HiddenFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                    </p>
+                </div>
+                <div class="card2 green">
+                    <p class="second-text">
+                        @Html.LabelFor(model => model.ScheduleId, "Schedule ID: ", htmlAttributes: new { @class = "control-label" })
+                        @Model.UserID
+                        @Html.HiddenFor(model => model.ScheduleId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ScheduleId, "", new { @class = "text-danger" })
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="info">
+            <div>
+                <p class="name">
+                    @{
+                        int userId = ViewBag.UserId;
+                        Flight_Booking_System.Models.UserLogin user = db.UserLogins.Find(userId);
+                        string firstName = user.FirstName;
+                    }
+                    @Html.Label("Welcome, " + firstName + "!", htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="stats">
+                    <span class="state-value">
+                        @Html.HiddenFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                        @Model.From
+
+                    </span>
+                    <div class="arrow"> ✈︎ </div>
+                    <span class="state-value">
+                        @Html.HiddenFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                        @Model.To
+                    </span>
+
+                </div>
+                <p class="function">
+                    @Html.LabelFor(model => model.BookingDate, "Booking Date and Time", htmlAttributes: new { @class = "control-label" })
+                    <div class="timed" style="color:whitesmoke">
+                        @Html.HiddenFor(model => model.BookingDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BookingDate, "", new { @class = "text-danger" })
+                        <br />
+                        @Model.BookingDate
+                    </div>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    @*<button class="request" type="button">
+            @Html.LabelFor(model => model.NumberOfPassengers, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.NumberOfPassengers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfPassengers, "", new { @class = "text-danger" })
+            </div>
+        </button>*@
+    <br />
+    <div>
+        <div id="pulsa" class="pulsa" style=" margin-left: 120px;">
+            <button id="cta" class="cta">
+                Book<div class="star a"></div>
+                <div class="star b"></div>
+                <div class="star c"></div>
+                <div class="star d"></div>
+                <div class="star e"></div>
+                <div class="star f"></div>
+                <div class="star g"></div>
+                <svg version="1.1" viewBox="0 0 1024 1024" width="24px" class="rocket"><path fill="#3A7EB9" d="M662.72 462.784l136.448 169.408v173.248l-136.448-48.32zM342.72 457.344L206.272 626.816v173.248l136.448-48.384z"></path><path fill="#D48171" d="M570.688 418.688l-142.848 1.152a266.496 266.496 0 0 1-20.288-0.576l3.712 448.64c0.256 28.928 94.272 130.048 94.272 130.048s93.888-102.656 93.632-131.584l-3.712-448.96a344.64 344.64 0 0 1-24.768 1.28z"></path><path fill="#E9DF92" d="M531.456 599.296l-63.04 0.576c-3.008 0-5.952-0.064-8.96-0.384l2.176 257.792c0.128 16.64 41.728 74.816 41.728 74.816s41.344-58.944 41.28-75.52l-2.176-257.92c-3.648 0.384-7.296 0.64-11.008 0.64z"></path><path fill="#B5D5EB" d="M554.304 93.568a324.352 324.352 0 0 0-110.592 1.728L342.72 240.768v584.512c13.824-0.96 27.968-1.536 42.368-1.536h245.248c11.84 0 23.36 0.384 34.816 1.024V253.312L554.304 93.568z"></path><path fill="#3A7EB9" d="M541.44 94.144L500.416 35.008l-45.696 59.136v29.504h89.024v-29.504zM459.456 288.64h88.96v88.896h-88.96zM459.456 467.456h88.96v88.96h-88.96zM459.456 634.176h88.96v88.896h-88.96zM364.928 788.736h277.76v44.352h-277.76z"></path></svg>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+}

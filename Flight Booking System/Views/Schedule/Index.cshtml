@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Flight_Booking_System.Models.Schedule>
+@{
+    string role = string.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (string)Session["Role"];
+    }
+}
+
+@{
+    ViewBag.Title = "Flight Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    Flight_Booking_System.Models.ARSContext db = new Flight_Booking_System.Models.ARSContext();
+}
+
+<h2 class="h4 mb-3">Flight Schedules</h2>
+@if (role == "Admin")
+{
+    @Html.ActionLink("Add Flight Schedule", "Create", "Schedule", null, new { @class = "btn btn-primary mb-3" })
+}
+
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Flight Date</th>
+            <th>Airline</th>
+            <th>Price</th>
+            @if (role == "Admin")
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Source</td>
+                <td>@item.Destination</td>
+                <td>@item.DepartureTime</td>
+                <td>@item.ArrivalTime</td>
+                <td>@item.FlightDate.ToShortDateString()</td>
+                <td>
+                    @{
+                        Flight_Booking_System.Models.Airline al = db.Airlines.Find(item.AirlineId);
+                        string AirlineName = al.AirlineName;
+                    }
+                    @AirlineName
+                </td>
+                <td>@item.Price</td>
+                <td>
+                    @if (role == "Admin")
+                    {
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Schedule", new { id = item.ScheduleId })">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Schedule", new { id = item.ScheduleId })">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .h4 {
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+        border-collapse: collapse;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+
+    .thead-light th {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    .table-light tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+</style>

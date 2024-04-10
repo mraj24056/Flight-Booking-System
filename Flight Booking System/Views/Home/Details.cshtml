@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Flight_Booking_System.Models.UserLogin
+
+@{
+    ViewBag.Title = "User Details";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<h2>User Details</h2>
+
+<table class="table">
+    <tr>
+        <th>User ID</th>
+        <td>@Model.UserID</td>
+    </tr>
+    <tr>
+        <th>First Name</th>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Role</th>
+        <td>@Model.Role</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>@Model.Age</td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+</table>
+
+@Html.ActionLink("Back to Home", "UserHome", "Home", new { area = "" }, new { @class = "btn btn-primary" })
+
+

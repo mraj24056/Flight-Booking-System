@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<Flight_Booking_System.Models.Airport>
+@{
+    String role = String.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (String)Session["Role"];
+    }
+}
+
+<h2 class="h4 mb-3">Airports</h2>
+@if (role == "Admin")
+{
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Add New Airport</a>
+    </p>
+}
+
+
+<table class="table table-bordered">
+    <tr class="table-light">
+        <th>Airport Name</th>
+        <th>City</th>
+        <th>Country</th>
+
+        @if (role == "Admin")
+        {
+            <th>Actions</th>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.AirportName</td>
+            <td>@item.City</td>
+            <td>@item.Country</td>
+            <td>
+                @if (role == "Admin")
+                {
+                    <a href="@Url.Action("Edit", new { id = item.AirportId })" class="btn btn-primary">Edit</a>
+                }
+
+                @if (role == "Admin")
+                {
+                    <a href="@Url.Action("Delete", new { id = item.AirportId })" class="btn btn-danger">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>

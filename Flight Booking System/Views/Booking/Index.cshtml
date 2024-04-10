@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Flight_Booking_System.Models.Booking>
+
+@{
+    ViewBag.Title = "My Bookings";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<h2>My Bookings!</h2>
+
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+    .action-link {
+        color: blue;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .del a:link{
+        color:white;
+        font-size:12.67px;
+        margin-left:12px;
+    }
+    .del {
+        position: relative;
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #cc0000;
+        background-color: #e50000;
+        overflow: hidden;
+    }
+</style>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfPassengers)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.From)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPassengers)
+            </td>
+            <td>
+                <div class="del">
+                @Html.ActionLink("Cancel Booking 🗑", "Cancel", "Booking", new { id = item.BookingId }, new { @class = "action-link" })
+                </div>
+               |@Html.ActionLink("Details", "Confirmation", "Booking", new { id = item.BookingId }, new { @class = "action-link" })
+            </td>
+        </tr>
+    }
+</table>

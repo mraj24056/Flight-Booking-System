@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<Flight_Booking_System.Models.Airline>
+@{
+    string role = string.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (string)Session["Role"];
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h2 class="h4 mb-3">Airlines</h2>
+    @if (role == "Admin")
+    {
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">Add New Airline</a>
+        </p>
+    }
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <!-- Apply table-light class for thead -->
+            <tr>
+                <th>Airline Name</th>
+                <th>Seating Capacity</th>
+                @if (role == "Admin")
+                {
+                    <th>Actions</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AirlineName</td>
+                    <td>@item.SeatingCapacity</td>
+                    <td>
+                        @if (role == "Admin")
+                        {
+                            <a href="@Url.Action("Edit", new { id = item.AirlineId })" class="btn btn-primary">Edit</a>
+                        }
+                        @if (role == "Admin")
+                        {
+                            <a href="@Url.Action("Delete", new { id = item.AirlineId })" class="btn btn-danger">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
